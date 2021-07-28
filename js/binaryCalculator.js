@@ -3,25 +3,27 @@ let secondSet = "";
 let toggleSet = false;
 let operation = "";
 
-//btn0 A button expressing binary digit
-document.getElementById("btn0").addEventListener("click", () => {
+//display values on the caculator
+function display() {
+  document.getElementById('res').innerHTML = firstSet + operation + secondSet;
+}
+
+//Set the values clicked
+function setValues(valueClicked) {
   if (toggleSet == false) {
-    firstSet += 0;
+    firstSet += valueClicked;
   } else {
-    secondSet += 0;
+    secondSet += valueClicked;
   }
-  document.getElementById('res').innerHTML = firstSet + operation +secondSet;
-});
+
+  display();
+}
+
+//btn0 A button expressing binary digit
+document.getElementById("btn0").addEventListener("click", () => { setValues(0)});
 
 //btn1 A button expressing binary digit
-document.getElementById("btn1").addEventListener("click", () => {
-  if (toggleSet == false) {
-    firstSet += 1;
-  } else {
-    secondSet += 1;
-  }
-  document.getElementById('res').innerHTML = firstSet + operation +secondSet;
-});
+document.getElementById("btn1").addEventListener("click", () => {setValues(1)});
 
 //btnClr A button to clear the contents of res
 function clearValue() {
@@ -29,7 +31,8 @@ function clearValue() {
   secondSet = "";
   toggleSet = false;
   operation = "";
-  document.getElementById('res').innerHTML = firstSet + operation +secondSet;
+  
+  display();
 }
 
 document.getElementById('btnClr').addEventListener('click', clearValue);
@@ -55,33 +58,36 @@ document.getElementById("btnEql").addEventListener("click", () => {
       break;
   }
 
+  //display the result
   document.getElementById('res').innerHTML = (result >>> 0).toString(2);
 });
 
+//set operator
+function setOperator(operator) {
+  toggleSet = true;
+  operation = operator;
+}
+
 //+
 document.getElementById("btnSum").addEventListener("click", () => {
-  toggleSet = true;
-  operation = "+";
-  document.getElementById('res').innerHTML = firstSet + operation +secondSet;
+  setOperator('+')
+  display();
 });
 
 //-
 document.getElementById("btnSub").addEventListener("click", () => {
-  toggleSet = true;
-  operation = "-";
-  document.getElementById('res').innerHTML = firstSet + operation +secondSet;
+  setOperator('-')
+  display();
 });
 
 //*
 document.getElementById("btnMul").addEventListener("click", () => {
-  toggleSet = true;
-  operation = "*";
-  document.getElementById('res').innerHTML = firstSet + operation +secondSet;
+  setOperator('*')
+  display();
 });
 
 /// divsion
 document.getElementById("btnDiv").addEventListener("click", () => {
-  toggleSet = true;
-  operation = "/";
-  document.getElementById('res').innerHTML = firstSet + operation +secondSet;
+  setOperator('/')
+  display();
 });
